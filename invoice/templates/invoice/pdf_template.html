@@ -1,0 +1,112 @@
+<!DOCTYPE html>{% load static%}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="utf-8">
+    <title>Example 2</title>
+    <link rel="stylesheet" href="{%static 'css/invoice-template.css' %}" media="all" />
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="invoice" >
+          <div class="date">Invoice Number:ABC/{{invoice_id}}</div>
+          <div class="date">Date of Invoice: {{date}}</div>
+          <div class="date">Contract Agreement No: {{Contract_Agreement_Num}}</div>
+          <!--<div class="date">Due Date: {{due_date}}</div>-->
+        </div>
+      <!--<div id="logo">
+        <img src="{% static 'img/logo.png'%}" style="width: 134px; height:116px">
+      </div>
+      -->
+      <div id="company">
+        <h1 class="name">{{company.name}}</h1>
+        <div>{{company.address}}</div>
+        <div>{{company.address1}}</div>
+        <div>{{company.phone}}</div>
+        <div>{{company.contact}}</div>
+        <div><a href="mailto:{{company.email}}">{{company.email}}</a></div>
+      </div>
+      </div>
+    </header>
+    <main>
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="to">INVOICE TO:</div>
+          <h2 class="name">{{customer}}</h2>
+          <div class="address">{{billing_address}}</div>
+          <div class="address">{{message}}</div>
+          <div class="email"><a href="mailto:{{customer_email}}">{{customer_email}}</a></div>
+        </div>
+
+        <div id="account">
+          <div class="acc_name">{{account}}:</div>
+          <div class="bank">{{bank}}</div>
+          <div class="add">{{add}}</div>
+          <div class="add1">{{add1}}</div>
+          <div class="ifsc">{{ifsc}}</div>
+          <div class="acc">{{acc}}</div>
+
+          <!--<div class="date">Due Date: {{due_date}}</div>-->
+        </div>
+      </div>
+      <table class="table" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">No</th>
+            <th class="desc">DESCRIPTION</th>
+            <th class="unit1">UNIT</th>
+            <th class="qty">QUANTITY</th>
+            <th class="unit">RATE</th>
+            <th class="total">TOTAL</th>
+
+          </tr>
+        </thead>
+        <tbody>
+			{% for item in lineitem %}
+          <tr>
+            <td class="no">{{forloop.counter}}</td>
+            <td class="desc">{{item.description}}</td>
+            <td class="unit1">{{item.unit}}</td>
+            <td class="qty">{{item.quantity}}</td>
+            <td class="unit">{{item.rate}}</td>
+            <td class="total">{{item.amount}}</td>
+
+
+		  </tr>
+		  {% endfor %}
+        </tbody>
+      </table>
+    <div id="tot"  >
+      <table class="table1" >
+        <tr>
+          <td class="sub">SUB_TOTAL  =</td>
+          <td class="sub">{{invoice_total}}</td>
+        </tr>
+        <tr>
+          <td class="sub">TAX 18%    = </td>
+            <td class="sub">{{remark}}</td>
+        </tr>
+        <tr>
+          <td class="sub">GRAND TOTAL=</td>
+            <td>{{grand_total}}</td>
+
+        </tr>
+      </table>
+    </div>
+      <div id="word">
+          <tr>
+            <td class="sub1">VALUE IN WORDS: </td>
+            <td>{{words}} Only</td>
+          </tr>
+      </div>
+      <!--<div id="thanks">Thank you!</div>-->
+      <div id="notices">
+        <div class="notice">CERTIFIED THAT THE PARTICULARS GIVEN ABOVE ARE TRUE AND CORRECT
+          AND AMOUNT INDICATED REPRESENTS THE PRICE ACTUALLY CHARGED AND THAT THERE IS NO FLOW
+          ADDITIONAL CONSIDERATION DIRECTLY OR INDIRECTLY FROM THE BUYER.</div>
+      </div>
+    </main>
+    <footer>
+      Invoice was created on a computer and is valid without the signature and seal.
+    </footer>
+  </body>
+</html>
